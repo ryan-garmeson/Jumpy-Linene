@@ -72,6 +72,8 @@ pieces = [
 
 def willFit(board, piece, location):
   for unit in piece.unit_list:
+    if  not validLocation(location[0]+unit[0],location[1]+unit[1]):
+      return False
     if board[location[0]+unit[0]][location[1]+unit[1]] != 1:
       return False
   return True
@@ -80,9 +82,8 @@ def validLocation(x,y):
   return x >= 0 and x < 7 and y >=0 and y < 7
 
 def placePiece(board, piece, location):
-  #if willFit(board, piece, location):
-  for unit in piece.unit_list:
-    if validLocation(location[0]+unit[0],location[1]+unit[1]):
+  if willFit(board, piece, location):
+    for unit in piece.unit_list:
       board[location[0]+unit[0]][location[1]+unit[1]] = (piece.unit_count, piece.color)
   return board
 
